@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+    const getTodos = async () => {
+      const res = await fetch("http://localhost:3000/api/todos?apiKey=a8dfea76-4a96-4859-9e5d-87dfcf45e14b")
+      const data = await res.json()
+
+      console.log({ res, data })
+    }
+
+    getTodos()
+  </script>
+</body>
+</html>
