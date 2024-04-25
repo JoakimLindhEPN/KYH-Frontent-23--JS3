@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import AuthContextProvider from "@/components/auth-provider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
               enableSystem
               disableTransitionOnChange
             >
+            <Toaster />
             {children}
           </ThemeProvider>
         </AuthContextProvider>

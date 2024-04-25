@@ -1,6 +1,12 @@
+import FileDropzone from "./_components/file-dropzone"
+import FileList from "./_components/file-list"
+
 function FilesPage() {
   return (
-    <div>FilesPage</div>
+    <div>
+      <FileDropzone />
+      <FileList />
+    </div>
   )
 }
 export default FilesPage
