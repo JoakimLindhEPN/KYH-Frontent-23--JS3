@@ -12,6 +12,7 @@ import { useAuth } from "@/components/auth-provider"
 import { LogOut, User } from "lucide-react"
 import { signOut } from "firebase/auth"
 import { auth } from "@/firebase.config"
+import Link from "next/link"
 
 
 const UserAvatar = () => {
@@ -35,7 +36,11 @@ const UserAvatar = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem><User className="size-4 mr-4" /> Profile</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/profile" className="flex">
+            <User className="size-4 mr-4" /> Profile
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={handleSignOut}><LogOut className="size-4 mr-4" />Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -9,6 +9,15 @@ import { Table, TableCaption } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
 import { Search, XIcon } from "lucide-react"
 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+
 const FileList = () => {
 
   const { user } = useAuth()
@@ -21,6 +30,7 @@ const FileList = () => {
     createdAt: file.createdAt ? new Date(file?.createdAt?.seconds * 1000) : new Date()
   }))
   .filter(file => file.filename.toLowerCase().includes(search.toLocaleLowerCase()))
+  .filter(file => selectValue === 'all' ? file : file.type.includes(selectValue))
 
 
   useEffect(() => {
@@ -52,6 +62,18 @@ const FileList = () => {
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 size-5 text-muted-foreground" />
           <XIcon onClick={() => setSearch('')} className="absolute right-4 top-1/2 transform -translate-y-1/2 size-5 text-red-500/50 hover:text-red-500 cursor-pointer" />
         </div>
+        <Select value={selectValue} onValueChange={setSelectValue}>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="All files" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All files</SelectItem>
+            <SelectItem value="image">Images</SelectItem>
+            <SelectItem value="pdf">PDF</SelectItem>
+            <SelectItem value="text">Text</SelectItem>
+            <SelectItem value="zip">Zip</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
       <FileTable files={normalizedFiles} />
     </div>
