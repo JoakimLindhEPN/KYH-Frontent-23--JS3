@@ -5,15 +5,17 @@ export default defineSchema({
   rooms: defineTable({ 
     name: v.string(),
     isPublic: v.boolean(),
-    password: v.string()
+    password: v.optional(v.string())
    }),
-   messages: defineTable({
+  messages: defineTable({
     author: v.string(),
+    authorId: v.string(),
     roomId: v.id("rooms"),
     body: v.string()
-   }),
-   likes: defineTable({
+   }).index("by_room", ["roomId"]),
+  likes: defineTable({
     messageId: v.id("messages"),
-    liker: v.string()
-   })
+    liker: v.string(),
+    likerId: v.string()
+   }).index("by_messageId", ["messageId"])
 });

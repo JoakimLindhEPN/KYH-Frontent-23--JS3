@@ -1,16 +1,25 @@
 'use client'
 
 import { api } from "@/convex/_generated/api"
-import { useMutation } from "convex/react"
+import { useQuery } from "convex/react"
+import AddRoomDrawer from "./_components/add-room-drawer"
+import RoomListItem from "./_components/room-list-item"
 
 function ChatPage() {
-  const createRoom = useMutation(api.rooms.createRoom)
-  
+  const rooms = useQuery(api.rooms.getAll)
   return (
-    <div>
-      <button onClick={async () => {
-        await createRoom({name: 'My Room', isPublic: false, password: 'BytMig123'})
-      }}>test</button>
+    <div className="">
+      <div className="container h-full overflow-auto">
+        <h1 className="text-4xl font-bold my-4">Your Rooms</h1>
+        <div className="flex flex-col gap-2">
+          {
+            rooms?.map(room => (
+              <RoomListItem  key={room._id} room={room} />
+            ))
+          }
+        </div>
+      </div>
+      <AddRoomDrawer />
     </div>
   )
 }
