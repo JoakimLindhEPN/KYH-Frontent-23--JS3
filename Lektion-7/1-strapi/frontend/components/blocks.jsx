@@ -2,7 +2,7 @@ import { Features } from "./features"
 import { Hero } from "./hero"
 
 export const Blocks = ({ blocks }) => {
-  console.log(blocks)
+  // console.log(blocks)
 
 
 
