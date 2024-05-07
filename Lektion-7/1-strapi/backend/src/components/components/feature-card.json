@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_components_feature_cards",
+  "info": {
+    "displayName": "featureCard"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  }
+}
