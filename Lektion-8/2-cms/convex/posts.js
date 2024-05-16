@@ -30,3 +30,32 @@ export const getById = query({
     return await ctx.db.get(args.id);
   }
 })
+
+export const update = mutation({
+  args: {
+    id: v.id("posts"),
+    title: v.optional(v.string()),
+    body: v.optional(v.string())
+  },
+  handler: async (ctx, { id, title, body }) => {
+    const identity = await ctx.auth.getUserIdentity()
+    if(! await checkIfAdmin(ctx, identity.subject)) {
+      throw new ConvexError('Unauthorized')
+    }
+
+    return await ctx.db.patch(id, { title, body })
+  }
+})
+
+
+export const removePost = mutation({
+  args: { id: v.id('posts') },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity()
+    if(! await checkIfAdmin(ctx, identity.subject)) {
+      throw new ConvexError('Unauthorized')
+    }
+
+    await ctx.db.delete(args.id)
+  }
+})

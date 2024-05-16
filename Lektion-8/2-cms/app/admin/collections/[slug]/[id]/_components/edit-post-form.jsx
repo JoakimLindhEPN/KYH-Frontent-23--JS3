@@ -9,20 +9,19 @@ import { useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { useRouter } from "next/navigation"
 
-export const CreatePostForm = () => {
+export const EditPostForm = ({ post }) => {
 
   const router = useRouter()
 
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
+  const [title, setTitle] = useState(post.title)
+  const [body, setBody] = useState(post.body)
 
-  const createPost = useMutation(api.posts.create)
-
+  const editPost = useMutation(api.posts.update)
   const handleSubmit = async e => {
     e.preventDefault()
     if(title == '' || body == '') return
 
-    await createPost({ title, body })
+    await editPost({ id: post._id, title, body })
     router.back()
   }
 
