@@ -26,7 +26,7 @@ export const PageRoutes = () => {
       </Link>
       {
         pages && pages.map(page => (
-          <Link href={`/admin/pages/${page.name}`} className={cn("capitalize flex items-center justify-between p-4 hover:bg-slate-50/10 border-r-4 border-transparent",
+          <Link key={page._id} href={`/admin/pages/${page.name}`} className={cn("capitalize flex items-center justify-between p-4 hover:bg-slate-50/10 border-r-4 border-transparent",
             pathname.endsWith(`pages/${page.name}`) && "bg-slate-50/5 border-slate-500"
           )}>
             <p>{page.name}</p>

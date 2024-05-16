@@ -16,6 +16,7 @@ import type {
 } from "convex/server";
 import type * as admins from "../admins.js";
 import type * as pages from "../pages.js";
+import type * as posts from "../posts.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -28,6 +29,7 @@ import type * as pages from "../pages.js";
 declare const fullApi: ApiFromModules<{
   admins: typeof admins;
   pages: typeof pages;
+  posts: typeof posts;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

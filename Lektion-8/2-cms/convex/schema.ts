@@ -9,5 +9,9 @@ export default defineSchema({
   pages: defineTable({
     name: v.string(),
     content: v.string()
-  }).index("by_name", ["name"])
+  }).index("by_name", ["name"]),
+  posts: defineTable({
+    title: v.string(),
+    body: v.string()
+  })
 });

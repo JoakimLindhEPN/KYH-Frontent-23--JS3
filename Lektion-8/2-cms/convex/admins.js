@@ -17,3 +17,41 @@ export const checkAdmin = query({
     else return true
   }
 })
+
+export const getAll = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity()
+    if(! await checkIfAdmin(ctx, identity.subject)) {
+      throw new ConvexError('Unauthorized')
+    }
+
+    return await ctx.db.query('admins').collect()
+  }
+})
+
+export const makeAdmin = mutation({
+  args: {
+    userId: v.string(),
+    email: v.string()
+  },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity()
+    if(! await checkIfAdmin(ctx, identity.subject)) {
+      throw new ConvexError('Unauthorized')
+    }
+
+    await ctx.db.insert('admins', { userId: args.userId, email: args.email })
+  } 
+})
+
+export const removeAdmin = mutation({
+  args: { id: v.id('admins') },
+  handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity()
+    if(! await checkIfAdmin(ctx, identity.subject)) {
+      throw new ConvexError('Unauthorized')
+    }
+
+    await ctx.db.delete(args.id)
+  }
+})
