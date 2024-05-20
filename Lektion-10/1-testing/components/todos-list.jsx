@@ -12,7 +12,7 @@ export const TodosList = ({ todos }) => {
       </div>
       <div>
         { todos && todos.map(todo => (
-          <p onClick={() => deleteTodo(todo.id)} key={todo.id} className="py-2 border-b first:border-t cursor-pointer hover:bg-slate-50/5">{ todo.title }</p>
+          <p data-testid="todo-element" onClick={() => deleteTodo(todo.id)} key={todo.id} className="py-2 border-b first:border-t cursor-pointer hover:bg-slate-50/5">{ todo.title }</p>
         ))}
       </div>
     </div>

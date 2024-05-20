@@ -1,6 +1,7 @@
 'use client'
 
 import { AddTodoForm } from "@/components/add-todo-form"
+import { AsyncTodosList } from "@/components/async-todos-list"
 import { Header } from "@/components/header/header"
 import { TodosList } from "@/components/todos-list"
 import { useTodos } from "@/providers/TodosProvider"
@@ -15,6 +16,7 @@ function Home() {
         <Header title="My Todos" />
         <AddTodoForm />
         <TodosList todos={todos} />
+        <AsyncTodosList />
       </div>
     </div>
   )

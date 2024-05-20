@@ -19,7 +19,7 @@ export const AddTodoForm = () => {
 
   return (
     <form name="add-todo-form" onSubmit={handleSubmit} className="p-4 flex gap-2">
-      <Input value={title} onChange={e => setTitle(e.target.value)} />
+      <Input aria-label="todo-title-input" value={title} onChange={e => setTitle(e.target.value)} />
       <Button>ADD</Button>
     </form>
   )
