@@ -1,6 +1,7 @@
 'use client'
 
 import { createContext, useContext, useState } from "react"
+import { v4 as uuidv4 } from 'uuid'
 
 export const TodosContext = createContext()
 
@@ -10,7 +11,7 @@ const TodosContextProvider = ({ children }) => {
 
   const addTodo = (title) => {
     const todo = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       title
     }
 
