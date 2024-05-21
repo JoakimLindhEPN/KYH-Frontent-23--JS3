@@ -1,19 +1,16 @@
 'use client'
 
+import { api } from "@/convex/_generated/api"
 import { cn } from "@/lib/utils"
+import { useQuery } from "convex/react"
 import { PlusCircle } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-const pages = [
-  {
-    _id: '1',
-    name: 'home'
-  }
-]
 
 export const PageRoutes = () => {
-
+  
+  const pages = useQuery(api.pageForms.getAll)
   const pathname = usePathname()
 
   return (

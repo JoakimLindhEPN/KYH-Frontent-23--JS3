@@ -13,5 +13,9 @@ export default defineSchema({
   posts: defineTable({
     title: v.string(),
     body: v.string()
-  })
+  }),
+  pageForms: defineTable({
+    name: v.string(),
+    fields: v.array(v.object({ name: v.string(), type: v.string() }))
+  }).index("by_name", ["name"]),
 });

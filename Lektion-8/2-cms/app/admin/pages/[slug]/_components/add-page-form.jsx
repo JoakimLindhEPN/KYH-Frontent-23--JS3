@@ -6,6 +6,9 @@ import { Label } from "@/components/ui/label"
 import { addPage } from "../addPageActions"
 import { useFormState } from 'react-dom'
 import usePageData from "@/lib/usePageData"
+import { useQuery } from "convex/react"
+import { api } from "@/convex/_generated/api"
+import { Textarea } from "@/components/ui/textarea"
 
 export const AddPageForm = ({ name }) => {
 
@@ -13,6 +16,12 @@ export const AddPageForm = ({ name }) => {
   const addPageActionWithName = addPage.bind(null, name )
   const [state, formAction] = useFormState(addPageActionWithName, null)
 
+  const formFields = useQuery(api.pageForms.getPageForm, { name })
+
+  if(!formFields) return null
+
+  const fields = formFields.fields
+  
   return (
     <form action={formAction}>
       {
@@ -27,16 +36,30 @@ export const AddPageForm = ({ name }) => {
           <p className="bg-emerald-800/40 px-4 py-2 rounded-xl text-emerald-200">{state.message}</p>
         </div>
       }
-      {/* <input type="hidden" name="name" value={name} /> */}
       <div className="space-y-4">
-        <div>
-          <Label className="capitalize" htmlFor="heading">heading</Label>
-        <Input defaultValue={page?.heading || ''} id="heading" name="heading" />
-        </div>
-        <div>
-          <Label className="capitalize" htmlFor="sub_heading">sub heading</Label>
-          <Input defaultValue={page?.sub_heading || ''} id="sub_heading" name="sub_heading" />
-        </div>
+
+      {
+        fields.map((field, i) => {
+
+          switch(field.type) {
+            case 'textarea':
+              return (
+                <div key={i + field.name}>
+                  <Label className="capitalize" htmlFor={field.name}>{ field.name.replace(/_/g, ' ')}</Label>
+                  <Textarea defaultValue={page[field.name]} id={field.name} name={field.name}/>
+                </div>
+              )
+            default:
+              return (
+                <div key={i + field.name}>
+                  <Label className="capitalize" htmlFor={field.name}>{ field.name.replace(/_/g, ' ')}</Label>
+                  <Input defaultValue={page[field.name]} id={field.name} name={field.name} type={field.type} />
+                </div>
+              )
+          }
+
+        })
+      }
 
         <Button className="w-full">Save</Button>
       </div>

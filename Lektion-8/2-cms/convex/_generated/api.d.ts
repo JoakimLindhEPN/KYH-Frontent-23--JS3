@@ -15,6 +15,7 @@ import type {
   FunctionReference,
 } from "convex/server";
 import type * as admins from "../admins.js";
+import type * as pageForms from "../pageForms.js";
 import type * as pages from "../pages.js";
 import type * as posts from "../posts.js";
 
@@ -28,6 +29,7 @@ import type * as posts from "../posts.js";
  */
 declare const fullApi: ApiFromModules<{
   admins: typeof admins;
+  pageForms: typeof pageForms;
   pages: typeof pages;
   posts: typeof posts;
 }>;
